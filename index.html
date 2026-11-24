@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CIA 1 - JSON, XML & Fetch API Solutions</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 30px; background: #f8fafc; color: #1e293b; }
+    h1 { color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+    .card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px 22px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    h3 { margin-top: 0; color: #1e40af; }
+    pre { background: #0f172a; color: #e2e8f0; padding: 12px 16px; border-radius: 6px; overflow-x: auto; font-size: 14px; }
+    button { background: #2563eb; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; margin-top: 8px; }
+    button:hover { background: #1d4ed8; }
+    .output { background: #f1f5f9; border-left: 4px solid #2563eb; padding: 10px; margin-top: 10px; font-family: monospace; white-space: pre-wrap; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <h1>CIA 1 - Practical Solutions (Q1 - Q10)</h1>
+  <p>Open Browser Console (F12) to inspect standard console logs as requested in the exam.</p>
+
+  <div class="card">
+    <h3>Q1. Create a JSON Object</h3>
+    <pre>
+{
+  "name": "Arun",
+  "age": 25,
+  "department": "IT"
+}
+    </pre>
+  </div>
+
+  <div class="card">
+    <h3>Q2. Access JSON Properties</h3>
+    <button onclick="runQ2()">Run Q2</button>
+    <div id="out2" class="output">Click button to view output...</div>
+  </div>
+
+  <div class="card">
+    <h3>Q3. Convert JSON into JavaScript Object (JSON.parse)</h3>
+    <button onclick="runQ3()">Run Q3</button>
+    <div id="out3" class="output">Click button to view output...</div>
+  </div>
+
+  <div class="card">
+    <h3>Q4. Convert JavaScript Object into JSON (JSON.stringify)</h3>
+    <button onclick="runQ4()">Run Q4</button>
+    <div id="out4" class="output">Click button to view output...</div>
+  </div>
+
+  <div class="card">
+    <h3>Q5. XML Document</h3>
+    <pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;student&gt;
+    &lt;name&gt;Kumar&lt;/name&gt;
+    &lt;age&gt;23&lt;/age&gt;
+    &lt;department&gt;CSE&lt;/department&gt;
+&lt;/student&gt;
+    </pre>
+  </div>
+
+  <div class="card">
+    <h3>Q6. Simple AJAX Fetch Request (Name)</h3>
+    <button onclick="runQ6()">Run Q6</button>
+    <div id="out6" class="output">Click button to fetch...</div>
+  </div>
+
+  <div class="card">
+    <h3>Q7. Fetch and Display User's Phone Number</h3>
+    <button onclick="runQ7()">Run Q7</button>
+    <div id="out7" class="output">Click button to fetch...</div>
+  </div>
+
+  <div class="card">
+    <h3>Q8. Display Multiple Users (forEach)</h3>
+    <button onclick="runQ8()">Run Q8</button>
+    <div id="out8" class="output">Click button to fetch...</div>
+  </div>
+
+  <div class="card">
+    <h3>Q9. Fetch and Display Company Information</h3>
+    <button onclick="runQ9()">Run Q9</button>
+    <div id="out9" class="output">Click button to fetch...</div>
+  </div>
+
+  <div class="card">
+    <h3>Q10. Handle Errors Using Fetch API (.catch)</h3>
+    <button onclick="runQ10(false)">Run Q10 (Valid URL)</button>
+    <button onclick="runQ10(true)" style="background:#dc2626;">Run Q10 (Trigger Error)</button>
+    <div id="out10" class="output">Click button to test...</div>
+  </div>
+
+  <script>
+    function runQ2() {
+      const student = { "name": "Priya", "age": 22, "city": "Bangalore" };
+      console.log("Name:", student.name);
+      console.log("City:", student.city);
+      document.getElementById('out2').textContent = `Name: ${student.name}\nCity: ${student.city}`;
+    }
+
+    function runQ3() {
+      let student = '{"name":"Ravi","age":24}';
+      let studentObj = JSON.parse(student);
+      console.log("Student Name:", studentObj.name);
+      document.getElementById('out3').textContent = `Student Name: ${studentObj.name}`;
+    }
+
+    function runQ4() {
+      const student = { name: "Arun", age: 21, city: "Chennai" };
+      const jsonString = JSON.stringify(student);
+      console.log(jsonString);
+      document.getElementById('out4').textContent = jsonString;
+    }
+
+    function runQ6() {
+      fetch("https://jsonplaceholder.typicode.com/users/1")
+        .then(res => res.json())
+        .then(user => {
+          console.log("User Name:", user.name);
+          document.getElementById('out6').textContent = `User Name: ${user.name}`;
+        });
+    }
+
+    function runQ7() {
+      fetch("https://jsonplaceholder.typicode.com/users/3")
+        .then(res => res.json())
+        .then(user => {
+          console.log("Phone Number:", user.phone);
+          document.getElementById('out7').textContent = `Phone Number: ${user.phone}`;
+        });
+    }
+
+    function runQ8() {
+      fetch("https://jsonplaceholder.typicode.com/users")
+        .then(res => res.json())
+        .then(users => {
+          let list = [];
+          users.forEach(user => {
+            console.log(user.name);
+            list.push(user.name);
+          });
+          document.getElementById('out8').textContent = list.join("\n");
+        });
+    }
+
+    function runQ9() {
+      fetch("https://jsonplaceholder.typicode.com/users/4")
+        .then(res => res.json())
+        .then(user => {
+          console.log("Company Name:", user.company.name);
+          console.log("Website:", user.website);
+          document.getElementById('out9').textContent = `Company Name: ${user.company.name}\nWebsite: ${user.website}`;
+        });
+    }
+
+    function runQ10(triggerError) {
+      const url = triggerError ? "https://jsonplaceholder.typicode.com/invalid_endpoint_404" : "https://jsonplaceholder.typicode.com/users/1";
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(user => {
+          console.log("User details:", user);
+          document.getElementById('out10').textContent = `Success:\n` + JSON.stringify(user, null, 2);
+        })
+        .catch(error => {
+          console.error("Error occurred while fetching data:", error.message);
+          document.getElementById('out10').textContent = `Caught Error: ${error.message}`;
+        });
+    }
+  </script>
+</body>
+</html>
