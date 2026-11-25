@@ -1,4 +1,3 @@
-// Q1. Create a JSON object containing student information
 const student = {
   "name": "Arun",
   "age": 25,
